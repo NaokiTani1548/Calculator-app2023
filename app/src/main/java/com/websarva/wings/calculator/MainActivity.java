@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button1,button2,button3,button4,button5,button6,button7,button8,button9,button0,
             plus,minus,multiply,divide,equal;
     int[] counter = new int[20];
-    int count = 0;     //入力桁数を数える。
+    int count = 0;     //入力桁数を数える。。
     int[] correctNumber = new int[50];
     int[] plusOrder = new int[10];
     int[] minusOrder = new int[10];
