@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     int minusCount = 0;
     int multiplyCount = 0;
     int divideCount = 0;
+    int moved = 0;
     EditText editText;
 
     public int NumberCorrect(){ //入力された数字群を計算で使えるように変える
@@ -158,17 +159,23 @@ public class MainActivity extends AppCompatActivity {
                 divideOrder[divideCount] = orderCount;
                 divideCount += 1;
             }if((Button)view == equal){
-                 editText.setText(equal.getText());
+                editText.setText(equal.getText());
                 correctNumber[orderCount] = NumberCorrect();
                  if(multiplyCount != 0) {
                     int i = 0;
                     while(multiplyCount != 0) {
                         int total = correctNumber[multiplyOrder[i] - 1] * correctNumber[multiplyOrder[i]];
-                        correctNumber[multiplyOrder[i] - 1] = total;
-                        correctNumber[multiplyOrder[i]] = 0;
-                        for (int j = multiplyOrder[i]; j < orderCount - multiplyOrder[i]; j++) {
+                        correctNumber[multiplyOrder[i] - 1 - moved] = total;
+                        correctNumber[multiplyOrder[i] - moved] = 0;
+                        for (int j = multiplyOrder[i] - moved; j < orderCount - multiplyOrder[i] + 1; j++) {
                             correctNumber[j] = correctNumber[j + 1];
+                            correctNumber[j + 1] = 0;
                         }
+                        moved += 1;
+                        //editText.append(Integer.toString(correctNumber[0]));
+                        //editText.append(Integer.toString(correctNumber[1]));
+                        //editText.append(Integer.toString(correctNumber[2]));
+                        //editText.append(Integer.toString(correctNumber[3]));
                         multiplyCount -= 1;
                         i += 1;
                     }
@@ -177,11 +184,13 @@ public class MainActivity extends AppCompatActivity {
                     int i = 0;
                     while(divideCount != 0) {
                         int total = correctNumber[divideOrder[i] - 1] / correctNumber[divideOrder[i]];
-                        correctNumber[divideOrder[i] - 1] = total;
-                        correctNumber[divideOrder[i]] = 0;
-                        for (int j = divideOrder[i]; j < orderCount - divideOrder[i]; j++) {
+                        correctNumber[divideOrder[i] - 1 - moved] = total;
+                        correctNumber[divideOrder[i] - moved] = 0;
+                        for (int j = divideOrder[i] - moved; j < orderCount - divideOrder[i] + 1; j++) {
                             correctNumber[j] = correctNumber[j + 1];
+                            correctNumber[j + 1] = 0;
                         }
+                        moved += 1;
                         divideCount -= 1;
                         i += 1;
                     }
@@ -190,11 +199,17 @@ public class MainActivity extends AppCompatActivity {
                     int i = 0;
                     while(plusCount != 0) {
                         int total = correctNumber[0] + correctNumber[1];
-                        correctNumber[plusOrder[i] - 1] = total;
-                        correctNumber[plusOrder[i]] = 0;
-                       for (int j = plusOrder[i]; j < orderCount - plusOrder[i]; j++) {
+                        correctNumber[plusOrder[i] - 1 - moved] = total;
+                        correctNumber[plusOrder[i] - moved] = 0;
+                       for (int j = plusOrder[i] - moved; j < orderCount - plusOrder[i] + 1; j++) {
                             correctNumber[j] = correctNumber[j + 1];
+                            correctNumber[j + 1] = 0;
                         }
+                        moved += 1;
+                       // editText.append(Integer.toString(correctNumber[0]));
+                       // editText.append(Integer.toString(correctNumber[1]));
+                       // editText.append(Integer.toString(correctNumber[2]));
+                       // editText.append(Integer.toString(correctNumber[3]));
                         plusCount -= 1;
                         i += 1;
                     }
@@ -202,12 +217,14 @@ public class MainActivity extends AppCompatActivity {
                 if(minusCount != 0) {
                     int i = 0;
                     while(minusCount != 0) {
-                        int total = correctNumber[minusOrder[i] - 1] - correctNumber[minusOrder[i]];
-                        correctNumber[minusOrder[i] - 1] = total;
-                        correctNumber[minusOrder[i]] = 0;
-                        for (int j = minusOrder[i]; j < orderCount - minusOrder[i]; j++) {
+                        int total = correctNumber[0] - correctNumber[1];
+                        correctNumber[minusOrder[i] - 1 - moved] = total;
+                        correctNumber[minusOrder[i] - moved] = 0;
+                        for (int j = minusOrder[i] - moved; j < orderCount - minusOrder[i]; j++) {
                              correctNumber[j] = correctNumber[j + 1];
+                            correctNumber[j + 1] = 0;
                         }
+                        moved += 1;
                         minusCount -= 1;
                         i += 1;
                     }
