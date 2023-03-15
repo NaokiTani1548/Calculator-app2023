@@ -30,14 +30,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
 
     //入力された数字群を計算で使えるように変える
-    private int CreateNumberFromInput() {
-        int number = 0;
-        for (int i = 0; i < count; i++) {
-            number = number * 10 + counter[i];
-        }
-        count = 0;
-        return number;
-    }
+
 
     public MainActivity() {
 
@@ -90,6 +83,30 @@ public class MainActivity extends AppCompatActivity {
             counter[count] = number;
             editText.append(String.valueOf(number));
             count++;
+            ButtonVisibility();
+        }
+        private void ButtonInVisibility(){
+            plus.setEnabled(false);
+            minus.setEnabled(false);
+            divide.setEnabled(false);
+            multiply.setEnabled(false);
+            equal.setEnabled(false);
+        }
+        private void ButtonVisibility(){
+            plus.setEnabled(true);
+            minus.setEnabled(true);
+            divide.setEnabled(true);
+            multiply.setEnabled(true);
+            equal.setEnabled(true);
+        }
+        private int CreateNumberFromInput() {
+            int number = 0;
+            for (int i = 0; i < count; i++) {
+                number = number * 10 + counter[i];
+            }
+            count = 0;
+            ButtonInVisibility();
+            return number;
         }
 
         @Override
