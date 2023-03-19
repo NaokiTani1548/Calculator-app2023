@@ -12,12 +12,12 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     public Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0,
-            plus, minus, multiply, divide, equal,reset;
+            plus, minus, multiply, divide, equal,reset,parentheses1,parentheses2;
     int[] counter = new int[20];
     int count = 0;
     int total;
-    int[] correctNumber = new int[50];
-    int[] Orders = new int[50];
+    int[] correctNumber = new int[10];
+    int[] Orders = new int[10];
     int orderCount = 0;
     int[] plusOrder = new int[10];
     int[] minusOrder = new int[10];
@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
         equal.setOnClickListener(buttonNumberListener);
         reset = (Button) findViewById(R.id.buttonReset);
         reset.setOnClickListener(buttonNumberListener);
+        parentheses1 = (Button) findViewById(R.id.button10);
+        parentheses1.setOnClickListener(buttonNumberListener);
+        parentheses2 = (Button) findViewById(R.id.button11);
+        parentheses2.setOnClickListener(buttonNumberListener);
 
     }
 
@@ -178,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                     if (Orders[i] == 3 || Orders[i] == 4) {
                         correctNumber[i] = total;
                         correctNumber[i + 1] = 0;
+                        Orders[i] = 0;
                         for (int j = i + 1; j < orderCount; j++) {
                             correctNumber[j] = correctNumber[j + 1];
                             correctNumber[j + 1] = 0;
@@ -201,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                     if (Orders[i] == 1 || Orders[i] == 2) {
                         correctNumber[i] = total;
                         correctNumber[i + 1] = 0;
+                        Orders[i] = 0;
                         for (int j = i + 1; j < orderCount; j++) {
                             correctNumber[j] = correctNumber[j + 1];
                             correctNumber[j + 1] = 0;
@@ -216,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 editText.append(Integer.toString(correctNumber[0]));
             }
             if((Button)view == reset){
-                for(int k = 0; k < 50 ; k++){
+                for(int k = 0; k < 10 ; k++){
                     correctNumber[k] = 0;
                     Orders[k] = 0;
                     orderCount = 0;
